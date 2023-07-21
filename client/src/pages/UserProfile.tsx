@@ -1,6 +1,7 @@
 import { useEffect, useState }  from 'react';
 import { useAppSelector } from "../redux-hooks/hooks";
 import { Typography, TextField, Button, Divider } from '@mui/material';
+import DropzoneModal from '../components/DropzoneModal';
 
 type userType = {
     userId: string,
@@ -28,10 +29,8 @@ const UserProfile = () => {
     const userInfo = useAppSelector((state) => state.user);
 
     const [ user, setUser ] = useState<userType | null>(null);
-
-    // const { photo, createdAt, updatedAt, ...initialChangedUserInfo } = user;
-
     const [ changedUserInfo, setChangedUserInfo ] = useState<changedUserInfoType>({});
+    const [ isDropzoneModalActive, setIsDropzoneModalActive ] = useState<boolean>(false);
 
     useEffect(() => {
         const getUser = async () => {
@@ -86,10 +85,14 @@ const UserProfile = () => {
     if (!user) return null;
     return(
         <>
+            {
+                userInfo.token && isDropzoneModalActive && <DropzoneModal userId={user.userId} token={userInfo.token}/>
+            }
             <img 
                 src={`http://localhost:3005/images/${user.photo}`} 
                 alt="user profile photo" 
                 style={{ objectFit: "cover", borderRadius: "50%",  width: "200px", height: "200px" }}
+                onClick={() => setIsDropzoneModalActive(currentState => !currentState)}
             />
             <Typography>{user.firstName}</Typography>
             <Typography>member since: {(user.createdAt).slice(0, 10)}</Typography>

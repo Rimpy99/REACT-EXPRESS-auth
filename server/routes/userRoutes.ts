@@ -1,7 +1,5 @@
 import express , { Request, Response } from "express";
-// import { getUserAuthInfoRequest } from "../types/reqType";
 import User from "../db_schemas/User";
-import { userInfo } from "os";
 
 const router = express.Router();
 

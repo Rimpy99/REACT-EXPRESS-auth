@@ -15,7 +15,6 @@ const tokenVerification = (req, res, next) => {
             // token = token.split(' ')[1];
             token = token.slice(7, token.length).trimLeft();
         }
-        console.log(token);
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();

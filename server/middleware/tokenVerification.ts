@@ -12,7 +12,6 @@ export const tokenVerification = (req: Request, res:Response, next: NextFunction
             // token = token.split(' ')[1];
             token = token.slice(7, token.length).trimLeft();
         }
-        console.log(token)
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         
